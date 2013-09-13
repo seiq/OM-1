@@ -312,14 +312,6 @@ if IsMounted()
 		or (PQI:IsHotkeys(PQI_SINMistweaver_PAUSE_key)
 		and not GetCurrentKeyBoardFocus()) then
 	return true
-end
-
----------------------------
--- FLAG PICKUP (WSG &amp; TP) --
----------------------------
-if UnitInBattleground(&amp;quot;player&amp;quot;) then
-	InteractUnit(&amp;quot;Alliance Flag&amp;quot;)
-	InteractUnit(&amp;quot;Horde Flag&amp;quot;)
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Mana Tea / On Use</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 
@@ -455,32 +447,6 @@ if UnitPower(&amp;quot;player&amp;quot;, 12) &amp;lt; UnitPowerMax(&amp;quot;pla
 	local spell, unit = 100780, &amp;quot;target&amp;quot;
 	if SIN_CanCast(spell, unit) then
 		SIN_Cast(spell, unit)
-	end
-end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- SIN -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
------------------------------------
--- MISTWEAVER MONK A SIN PROFILE --
------------------------------------
-if not IsAddOnLoaded(&amp;quot;PQInterface&amp;quot;) then
-	PQR_WriteToChat(&amp;quot;PQInterface Addon Required.&amp;quot;, &amp;quot;ERROR&amp;quot;)
-	PQR_StopRotation()
-end
-
-if UnitIsDeadOrGhost(&amp;quot;player&amp;quot;)
-		or not HasFullControl() then
-	return true
-end
-
-local file = {
-	{ lua = &amp;quot;PQR_SIN.lua&amp;quot;, force = false },
-	{ lua = &amp;quot;PQR_SIN_LineOfSight.lua&amp;quot;, force = true },
-	{ lua = &amp;quot;PQR_SIN_HealBot.lua&amp;quot;, force = true },
-	}
-for i = 1, #file do
-	local lua, force = file[i].lua, file[i].force
-	PQR_LoadLua(lua, force)
-	if PQR_LoadLua(lua) == false then
-		PQR_WriteToChat(&amp;quot;Failed to load, &amp;quot; .. lua .. &amp;quot;, update this profile from PQR.&amp;quot;, &amp;quot;ERROR&amp;quot;)
-		PQR_StopRotation()
 	end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- PQI -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 if SIN_PQIMistweaver then
@@ -737,6 +703,13 @@ local config = {
 				&amp;apos;ls&amp;apos;,
 			},
 		},
+		{
+			name = &amp;quot;Force Target Heal&amp;quot;,
+			enable = true,
+			hotkeys = {
+				&amp;apos;rs&amp;apos;,
+			},
+		},
 	},
 }
 
@@ -784,4 +757,37 @@ if PQI_SINMistweaver_Uplift_enable then
 		end
 	end
 	
+end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Event: SoO -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
+----------- Immerseus
+if UnitExists(&amp;quot;target&amp;quot;)
+		and UnitName(&amp;quot;target&amp;quot;) ==  &amp;quot;Contaminated Puddle&amp;quot; then
+	SIN_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
+end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Force Heal -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>if PQI:IsHotkeys(PQI_SINMistweaver_ForceTargetHeal_key) then
+		SIN_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
+end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- SIN Pre -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
+-----------------------------------
+-- MISTWEAVER MONK A SIN PROFILE --
+-----------------------------------
+if not IsAddOnLoaded(&amp;quot;PQInterface&amp;quot;) then
+	PQR_WriteToChat(&amp;quot;PQInterface Addon Required.&amp;quot;, &amp;quot;ERROR&amp;quot;)
+	PQR_StopRotation()
+end
+
+if UnitIsDeadOrGhost(&amp;quot;player&amp;quot;)
+		or not HasFullControl() then
+	return true
+end
+
+local file = {
+	{ lua = &amp;quot;PQR_SIN.lua&amp;quot;, force = false },
+	{ lua = &amp;quot;PQR_SIN_LineOfSight.lua&amp;quot;, force = true },
+	{ lua = &amp;quot;PQR_SIN_HealBot.lua&amp;quot;, force = true },
+	}
+for i = 1, #file do
+	local lua, force = file[i].lua, file[i].force
+	PQR_LoadLua(lua, force)
+	if PQR_LoadLua(lua) == false then
+		PQR_WriteToChat(&amp;quot;Failed to load, &amp;quot; .. lua .. &amp;quot;, update this profile from PQR.&amp;quot;, &amp;quot;ERROR&amp;quot;)
+		PQR_StopRotation()
+	end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability></MONK>
