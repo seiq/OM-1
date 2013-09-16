@@ -15,13 +15,14 @@ local NumGroupMembers = IsInRaid() and GetNumGroupMembers()
 		or 0
 
 if not OM_AddToRoster then
-	function OM_AddToRoster (unit, hp, role)
-		if OM_UnitRosterCheck(unit) then
+	function OM_AddToRoster (aunit, hp, role)
+		if OM_UnitRosterCheck(aunit) then
 			tinsert(OM_roster, {
-				unit = unit,
+				unit = aunit,
 				hp = hp,
 				role = role,
-			}
+				}
+			)
 		end
 	end
 end
@@ -48,9 +49,10 @@ if not OM_UnitRosterCheck then
 	end
 end
 
-if not OM_SortRoaster then
- function OM_SortRoaster()
- table.sort(OM_roster, function(x, y) return x.hp < y.hp end)
+if not OM_SortRoster then
+ function OM_SortRoster()
+ 	table.sort(OM_roster, function(x, y) return x.hp < y.hp end)
+ end
 end
 
 if not OM_HealTarget then
