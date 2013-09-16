@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?><MONK><Options><ProfileVersion>1.00</ProfileVersion><AbilityURL></AbilityURL><RotationURL></RotationURL><LuaURL></LuaURL><LegacyMode>True</LegacyMode></Options><Rotation><RotationName>FIST</RotationName><RotationDefault>false</RotationDefault><RotationList>- PQI -|- OM Pre -|- Event: SoO -|- Event: PG -|- Force Heal -|- Pause -|- Stance / Buffs|- OM Post -|Fortifying Brew|Detox|Life Cocoon|Revival|Healing Sphere|Jade Serpent Statue|Uplift / Thunder Focus Tea|Enveloping Mist|Expel Harm|Surging Mist|Renewing Mist|Soothing Mist|Legendary Gem|Spinning Crane Kick|Mana Tea / On Use|Level 30 Talent|Fistweaver (Active)</RotationList><RequireCombat>false</RequireCombat><RotationNotes></RotationNotes></Rotation><Rotation><RotationName>MIST</RotationName><RotationDefault>false</RotationDefault><RotationList>- SIN -|- PQI -|- Pause -|- Stance / Buffs|Fortifying Brew|Detox|Life Cocoon|Revival|Healing Sphere|Jade Serpent Statue|Uplift / Thunder Focus Tea|Enveloping Mist|Expel Harm|Surging Mist|Renewing Mist|Soothing Mist|Spinning Crane Kick|Mana Tea / On Use|Level 30 Talent|Mistweaver (Passive)</RotationList><RequireCombat>false</RequireCombat><RotationNotes>**Update Instructions**
+1.) Copy link: 
+
+http://dl.dropbox.com/u/67270583/Mistweaver_MONK/SINWEAVER_MONK.txt
+
+2.) Download Profile from URL..
+3.) Paste link
+4.) Download</RotationNotes></Rotation></MONK>

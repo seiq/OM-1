@@ -5,16 +5,16 @@
 if PQI_SINMistweaver_SoothingMist_enable then
 
 	if GetUnitSpeed(&amp;quot;player&amp;quot;) == 0 then
-		local target, HP = SIN_HealTarget()
+		local target, HP = OM_HealTarget()
 		if HP &amp;lt;= PQI_SINMistweaver_SoothingMist_value
 				or UnitAffectingCombat(&amp;quot;player&amp;quot;) 
-				and not SIN_CanCast(100780, &amp;quot;target&amp;quot;)
+				and not OM_CanCast(100780, &amp;quot;target&amp;quot;)
 				and UnitPowerMax(&amp;quot;player&amp;quot;, 12) - 1 &amp;gt; UnitPower(&amp;quot;player&amp;quot;, 12) then
-			if not SIN_UnitBuffSpecial(target, 115175) then
-				SIN_SpecialCast(115175, target)
+			if not OM_UnitBuffSpecial(target, 115175) then
+				OM_SpecialCast(115175, target)
 			end
 		else
-			SIN_StopCast(115175)
+			OM_StopCast(115175)
 		end
 	end
 	
@@ -26,8 +26,8 @@ if PQI_SINMistweaver_FortifyingBrew_enable then
 
 	if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 
-		if SIN_UnitHP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_FortifyingBrew_value then 
-			SIN_Cast(115203)
+		if OM_UnitHP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_FortifyingBrew_value then 
+			OM_Cast(115203)
 			if GetItemCount(5512, nil, true) &amp;gt; 0 
 					and GetItemCooldown(5512) == 0 then
 				UseItemByName(GetItemSpell(5512))
@@ -48,8 +48,8 @@ end
 if not UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 
 	if not GetRaidBuffTrayAuraInfo(1) then
-		CancelUnitBuff(&amp;quot;player&amp;quot;, SIN_convert(115921))
-		SIN_Cast(115921, &amp;quot;player&amp;quot;)
+		CancelUnitBuff(&amp;quot;player&amp;quot;, OM_convert(115921))
+		OM_Cast(115921, &amp;quot;player&amp;quot;)
 	end
 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Surging Mist</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
@@ -58,20 +58,20 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 ------------------
 if PQI_SINMistweaver_SurgingMist_enable then
 
-	local target, HP = SIN_HealTarget()
+	local target, HP = OM_HealTarget()
 	if HP &amp;lt;= PQI_SINMistweaver_SurgingMist_value then
-		if UnitChannelInfo(&amp;quot;player&amp;quot;) == SIN_convert(115175)
+		if UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(115175)
 				and UnitPower(&amp;quot;player&amp;quot;, 12) &amp;lt; UnitPowerMax(&amp;quot;player&amp;quot;, 12)
-				and SIN_UnitBuffSpecial(target, 115175) then
-			SIN_SpecialCast(116694, target)
+				and OM_UnitBuffSpecial(target, 115175) then
+			OM_SpecialCast(116694, target)
 		end
-		if SIN_UnitBuffCount(&amp;quot;player&amp;quot;, 118674) == 5 then
-			SIN_SpecialCast(116694, target)
+		if OM_UnitBuffCount(&amp;quot;player&amp;quot;, 118674) == 5 then
+			OM_SpecialCast(116694, target)
 		end
-	elseif SIN_UnitBuffCount(&amp;quot;player&amp;quot;, 118674) == 5 then
-		SIN_SpecialCast(116694, target)
+	elseif OM_UnitBuffCount(&amp;quot;player&amp;quot;, 118674) == 5 then
+		OM_SpecialCast(116694, target)
 	else
-		SIN_StopCast(116694)
+		OM_StopCast(116694)
 	end
 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Expel Harm</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
@@ -80,8 +80,8 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 ----------------
 if PQI_SINMistweaver_ExpelHarm_enable then
 
-	if SIN_UnitHP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_ExpelHarm_value then
-		SIN_Cast(115072, &amp;quot;player&amp;quot;)
+	if OM_UnitHP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_ExpelHarm_value then
+		OM_Cast(115072, &amp;quot;player&amp;quot;)
 	end
 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Renewing Mist</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
@@ -90,11 +90,11 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -------------------
 if PQI_SINMistweaver_RenewingMist_enable then
 
-	local SIN_roster = SIN_roster
-	for i = 1, #SIN_roster do
-		if not UnitBuff(SIN_roster[i].unit, SIN_convert(115151), nil, &amp;quot;PLAYER&amp;quot;)
-				and SIN_UnitHP(SIN_roster[i].unit) &amp;lt;= PQI_SINMistweaver_RenewingMist_value then
-			SIN_Cast(115151, SIN_roster[i].unit)
+	local OM_roster = OM_roster
+	for i = 1, #OM_roster do
+		if not UnitBuff(OM_roster[i].unit, OM_convert(115151), nil, &amp;quot;PLAYER&amp;quot;)
+				and OM_UnitHP(OM_roster[i].unit) &amp;lt;= PQI_SINMistweaver_RenewingMist_value then
+			OM_Cast(115151, OM_roster[i].unit)
 		end
 	end
 
@@ -104,16 +104,16 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 ---------------------
 if PQI_SINMistweaver_EnvelopingMist_enable then
 
-	local target, HP = SIN_HealTarget()
+	local target, HP = OM_HealTarget()
 	if HP &amp;lt;= PQI_SINMistweaver_EnvelopingMist_value then
-		if UnitChannelInfo(&amp;quot;player&amp;quot;) == SIN_convert(115175)
+		if UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(115175)
 				and UnitPower(&amp;quot;player&amp;quot;, 12) &amp;gt;= 3
-				and SIN_UnitBuffSpecial(target, 115175)
-				and not UnitBuff(target, SIN_convert(124682), nil, &amp;quot;PLAYER&amp;quot;) then
-			SIN_SpecialCast(124682, target)
+				and OM_UnitBuffSpecial(target, 115175)
+				and not UnitBuff(target, OM_convert(124682), nil, &amp;quot;PLAYER&amp;quot;) then
+			OM_SpecialCast(124682, target)
 		end
 	else
-		SIN_StopCast(124682)
+		OM_StopCast(124682)
 	end
 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Life Cocoon</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
@@ -124,16 +124,16 @@ if PQI_SINMistweaver_LifeCocoon_enable then
 
 	if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 	
-		local target, HP, role = SIN_HealTarget()
+		local target, HP, role = OM_HealTarget()
 		local InstanceInfo = { GetInstanceInfo() }
 		if HP &amp;lt;= PQI_SINMistweaver_LifeCocoon_value
-				and not UnitBuff(target, SIN_convert(116849))
+				and not UnitBuff(target, OM_convert(116849))
 				and UnitAffectingCombat(target)
-				and not SIN_CastImmune(target)
+				and not OM_CastImmune(target)
 				and role ~= &amp;quot;PET&amp;quot;
-				and (SIN_HasThreat(target)
+				and (OM_HasThreat(target)
 				or InstanceInfo[2] == &amp;quot;arena&amp;quot;) then
-			SIN_Cast(116849, target)
+			OM_Cast(116849, target)
 		end
 	
 	end
@@ -150,7 +150,7 @@ if PQI_SINMistweaver_DispelTarget_enable then
 			34914, --Vampiric Touch
 			}
 		for i = 1, #DoNotDispel do
-			if UnitDebuff(unit, SIN_convert(DoNotDispel[i])) then
+			if UnitDebuff(unit, OM_convert(DoNotDispel[i])) then
 				return 1
 			else
 				return nil
@@ -172,7 +172,7 @@ if PQI_SINMistweaver_DispelTarget_enable then
 			if debuff[5] == &amp;quot;Magic&amp;quot;
 					or debuff[5] == &amp;quot;Poison&amp;quot;
 					or debuff[5] == &amp;quot;Disease&amp;quot; then
-				SIN_Cast(115450, unit)
+				OM_Cast(115450, unit)
 			end
 		end
 	end
@@ -185,8 +185,8 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -----------------
 -- AUTO-ATTACK --
 -----------------
-if SIN_CanCast(100780) then
-	if not IsCurrentSpell(SIN_convert(6603)) then
+if OM_CanCast(100780) then
+	if not IsCurrentSpell(OM_convert(6603)) then
 		AttackTarget()
 	end
 else
@@ -194,14 +194,14 @@ else
 end
 
 if UnitPower(&amp;quot;player&amp;quot;, 12) == UnitPowerMax(&amp;quot;player&amp;quot;, 12)
-		or UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(139598)) then
+		or UnitBuff(&amp;quot;player&amp;quot;, OM_convert(139598)) then
 	-------------------
 	-- BLACKOUT KICK --
 	-------------------
-	if not UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(127722)) then
+	if not UnitBuff(&amp;quot;player&amp;quot;, OM_convert(127722)) then
 		local spell, unit = 100784, &amp;quot;target&amp;quot;
-		if SIN_CanCast(spell, unit) then
-			SIN_Cast(spell, unit)
+		if OM_CanCast(spell, unit) then
+			OM_Cast(spell, unit)
 		end
 	end
 end
@@ -210,11 +210,11 @@ end
 -- JAB --
 ---------
 if UnitPower(&amp;quot;player&amp;quot;, 12) &amp;lt; UnitPowerMax(&amp;quot;player&amp;quot;, 12)
-		and not UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(127722))
-		and not UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(139598)) then
+		and not UnitBuff(&amp;quot;player&amp;quot;, OM_convert(127722))
+		and not UnitBuff(&amp;quot;player&amp;quot;, OM_convert(139598)) then
 	local spell, unit = 100780, &amp;quot;target&amp;quot;
-	if SIN_CanCast(spell, unit) then
-		SIN_Cast(spell, unit)
+	if OM_CanCast(spell, unit) then
+		OM_Cast(spell, unit)
 	end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Revival</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 -------------
@@ -224,12 +224,12 @@ if PQI_SINMistweaver_Revival_enable then
 
 	if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 		
-		local function SIN_RevivalTargets()
+		local function OM_RevivalTargets()
 			local targets = 0
-			local SIN_roster = SIN_roster
-			for i = 1, #SIN_roster do
-				if SIN_roster[i].role ~= &amp;quot;PET&amp;quot; then
-					if SIN_roster[i].hp &amp;lt;= PQI_SINMistweaver_Revival_value then
+			local OM_roster = OM_roster
+			for i = 1, #OM_roster do
+				if OM_roster[i].role ~= &amp;quot;PET&amp;quot; then
+					if OM_roster[i].hp &amp;lt;= PQI_SINMistweaver_Revival_value then
 						targets = targets + 1
 					end
 				end
@@ -237,8 +237,8 @@ if PQI_SINMistweaver_Revival_enable then
 			return targets
 		end
 		
-		if SIN_RevivalTargets() &amp;gt;= PQI_SINMistweaver_RevivalTargets_value then
-			SIN_SpecialCast(115310, &amp;quot;player&amp;quot;)
+		if OM_RevivalTargets() &amp;gt;= PQI_SINMistweaver_RevivalTargets_value then
+			OM_SpecialCast(115310, &amp;quot;player&amp;quot;)
 		end
 	
 	end
@@ -249,20 +249,20 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 --------------------- 
 if PQI_SINMistweaver_Level30Talent_enable then 
   
-	local spell = SIN_TalentOption(2) or 0
-	local SIN_roster = SIN_roster 
+	local spell = OM_TalentOption(2) or 0
+	local OM_roster = OM_roster 
 	
-	for i = 1, #SIN_roster do 
-		if SIN_roster[i].role  == &amp;quot;TANK&amp;quot;
-				and SIN_UnitHP(SIN_roster[i].unit) &amp;lt;= PQI_SINMistweaver_Level30Talent_value
-				and not UnitBuff(SIN_roster[i].unit, SIN_TalentOption(2), nil, &amp;quot;PLAYER&amp;quot;) then 
-			SIN_Cast(spell, SIN_roster[i].unit) 
+	for i = 1, #OM_roster do 
+		if OM_roster[i].role  == &amp;quot;TANK&amp;quot;
+				and OM_UnitHP(OM_roster[i].unit) &amp;lt;= PQI_SINMistweaver_Level30Talent_value
+				and not UnitBuff(OM_roster[i].unit, OM_TalentOption(2), nil, &amp;quot;PLAYER&amp;quot;) then 
+			OM_Cast(spell, OM_roster[i].unit) 
 		end 
 	end
 	
-	if SIN_UnitHP(SIN_roster[1].unit) &amp;lt;= PQI_SINMistweaver_Level30Talent_value
-			and not UnitBuff(SIN_roster[1].unit, spell, nil, &amp;quot;PLAYER&amp;quot;) then 
-		SIN_Cast(spell, SIN_roster[1].unit) 
+	if OM_UnitHP(OM_roster[1].unit) &amp;lt;= PQI_SINMistweaver_Level30Talent_value
+			and not UnitBuff(OM_roster[1].unit, spell, nil, &amp;quot;PLAYER&amp;quot;) then 
+		OM_Cast(spell, OM_roster[1].unit) 
 	end
 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Spinning Crane Kick</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
@@ -271,12 +271,12 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -------------------------
 if PQI_SINMistweaver_SpinningCraneKick_enable then
 
-	local function SIN_SpinningCraneKickTargets()
+	local function OM_SpinningCraneKickTargets()
 		local count = 0
-		local SIN_roster = SIN_roster
-		for i = 1, #SIN_roster do
-			if SIN_roster[i].hp &amp;lt;= PQI_SINMistweaver_SpinningCraneKick_value then
-				if CheckInteractDistance(SIN_roster[i].unit, 3) then
+		local OM_roster = OM_roster
+		for i = 1, #OM_roster do
+			if OM_roster[i].hp &amp;lt;= PQI_SINMistweaver_SpinningCraneKick_value then
+				if CheckInteractDistance(OM_roster[i].unit, 3) then
 					count = count + 1
 				end
 			end
@@ -284,10 +284,10 @@ if PQI_SINMistweaver_SpinningCraneKick_enable then
 		return count
 	end
 	
-	if GetSpellCooldown(SIN_convert(115151)) ~= 0
+	if GetSpellCooldown(OM_convert(115151)) ~= 0
 			and UnitPower(&amp;quot;player&amp;quot;, 12) &amp;lt; UnitPowerMax(&amp;quot;player&amp;quot;, 12) then
-		if SIN_SpinningCraneKickTargets() &amp;gt;= 6 then
-			SIN_SpecialCast(101546, &amp;quot;player&amp;quot;)
+		if OM_SpinningCraneKickTargets() &amp;gt;= 6 then
+			OM_SpecialCast(101546, &amp;quot;player&amp;quot;)
 		end
 	end
 	
@@ -298,7 +298,7 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 if PQI_SINMistweaver_HealingSphere_enable then
 
 	if PQI:IsHotkeys(PQI_SINMistweaver_HealingSphere_key) then
-		SIN_AECast(115460, &amp;quot;player&amp;quot;)
+		OM_AECast(115460, &amp;quot;player&amp;quot;)
 	end
 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Pause -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
@@ -306,9 +306,10 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -- PAUSE --
 -----------
 if IsMounted()
-		or UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(105590))
-		or UnitChannelInfo(&amp;quot;player&amp;quot;) == SIN_convert(115176)
-		or UnitChannelInfo(&amp;quot;player&amp;quot;) == SIN_convert(117952)
+		or UnitBuff(&amp;quot;player&amp;quot;, OM_convert(105590)) --drink
+		or UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(115176) --zen
+		or UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(117952) --crack
+		or UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(115867) --manatea
 		or (PQI:IsHotkeys(PQI_SINMistweaver_PAUSE_key)
 		and not GetCurrentKeyBoardFocus()) then
 	return true
@@ -320,14 +321,14 @@ if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 	--------------
 	if PQI_SINMistweaver_ManaTea_enable then
 	
-		local ManaTeaCount = GetSpellCount(SIN_convert(115294))
+		local ManaTeaCount = GetSpellCount(OM_convert(115294))
 		if ManaTeaCount &amp;gt;= 2
-				and SIN_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_ManaTea_value then
-			SIN_Cast(115294, &amp;quot;player&amp;quot;)
+				and OM_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_ManaTea_value then
+			OM_Cast(115294, &amp;quot;player&amp;quot;)
 		elseif ManaTeaCount == 1 then
-			if UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(64904))
-					or SIN_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= 25 then
-				SIN_Cast(115294, &amp;quot;player&amp;quot;)
+			if UnitBuff(&amp;quot;player&amp;quot;, OM_convert(64904))
+					or OM_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= 25 then
+				OM_Cast(115294, &amp;quot;player&amp;quot;)
 			end
 		end
 		
@@ -338,7 +339,7 @@ if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 	------------
 	if PQI_SINMistweaver_OnUse_enable then
 	
-		if SIN_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_OnUse_value then
+		if OM_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_OnUse_value then
 			local ItemSlot = { 13, 14, 10 }
 			for i = 1, #ItemSlot do
 				local ItemID = GetInventoryItemID(&amp;quot;player&amp;quot;, ItemSlot[i])
@@ -359,7 +360,7 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 if PQI_SINMistweaver_JadeSerpentStatue_enable then
 
 	if PQI:IsHotkeys(PQI_SINMistweaver_JadeSerpentStatue_key) then
-		SIN_AECast(115313, &amp;quot;player&amp;quot;)
+		OM_AECast(115313, &amp;quot;player&amp;quot;)
 	end
 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Fistweaver (Active)</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
@@ -371,10 +372,10 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -- TOUCH OF DEATH --
 --------------------
 local spell, unit = 115080, &amp;quot;target&amp;quot;
-if SIN_CanCast(spell, unit) then
+if OM_CanCast(spell, unit) then
 	if not UnitPlayerControlled(unit) then
 		if UnitHealth(unit) &amp;lt;= UnitHealth(&amp;quot;player&amp;quot;) then
-			SIN_Cast(spell, target)
+			OM_Cast(spell, target)
 		end
 	end
 end
@@ -383,13 +384,13 @@ end
 -- DISABLE --
 -------------
 local spell, unit = 116095, &amp;quot;target&amp;quot;
-if SIN_CanCast(spell, unit) then
+if OM_CanCast(spell, unit) then
 	if UnitPlayerControlled(unit) then
-		if not SIN_SnareImmune(unit)
+		if not OM_SnareImmune(unit)
 				and (GetUnitSpeed(unit) &amp;gt; 0
 				or GetUnitSpeed(&amp;quot;player&amp;quot;) &amp;gt; 0)
-				and not UnitDebuff(unit, SIN_convert(spell)) then
-			SIN_Cast(spell, target)
+				and not UnitDebuff(unit, OM_convert(spell)) then
+			OM_Cast(spell, target)
 		end
 	end
 end
@@ -397,8 +398,8 @@ end
 -----------------
 -- AUTO-ATTACK --
 -----------------
-if SIN_CanCast(100780) then
-	if not IsCurrentSpell(SIN_convert(6603)) then
+if OM_CanCast(100780) then
+	if not IsCurrentSpell(OM_convert(6603)) then
 		AttackTarget()
 	end
 else
@@ -411,29 +412,29 @@ end
 if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 
 		local spell, unit = 115098, &amp;quot;target&amp;quot;
-		if SIN_CanCast(spell, unit) then
-			SIN_Cast(spell, unit)
+		if OM_CanCast(spell, unit) then
+			OM_Cast(spell, unit)
 		end
 	
 end
 
 if UnitPower(&amp;quot;player&amp;quot;, 12) == UnitPowerMax(&amp;quot;player&amp;quot;, 12)
-		or UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(139598)) then
+		or UnitBuff(&amp;quot;player&amp;quot;, OM_convert(139598)) then
 	-------------------
 	-- BLACKOUT KICK --
 	-------------------
-	if not UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(127722)) then
+	if not UnitBuff(&amp;quot;player&amp;quot;, OM_convert(127722)) then
 		local spell, unit = 100784, &amp;quot;target&amp;quot;
-		if SIN_CanCast(spell, unit) then
-			SIN_Cast(spell, unit)
+		if OM_CanCast(spell, unit) then
+			OM_Cast(spell, unit)
 		end
 	else
 		----------------
 		-- TIGER PALM --
 		----------------
 		local spell, unit = 100787, &amp;quot;target&amp;quot;
-		if SIN_CanCast(spell, unit) then
-			SIN_Cast(spell, unit)
+		if OM_CanCast(spell, unit) then
+			OM_Cast(spell, unit)
 		end
 	end
 end
@@ -442,14 +443,14 @@ end
 -- JAB --
 ---------
 if UnitPower(&amp;quot;player&amp;quot;, 12) &amp;lt; UnitPowerMax(&amp;quot;player&amp;quot;, 12)
-		and (not UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(139598))
-		or not UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(127722))) then
+		and (not UnitBuff(&amp;quot;player&amp;quot;, OM_convert(139598))
+		or not UnitBuff(&amp;quot;player&amp;quot;, OM_convert(127722))) then
 	local spell, unit = 100780, &amp;quot;target&amp;quot;
-	if SIN_CanCast(spell, unit) then
-		SIN_Cast(spell, unit)
+	if OM_CanCast(spell, unit) then
+		OM_Cast(spell, unit)
 	end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- PQI -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
-if SIN_PQIMistweaver then
+if OM_PQIMistweaver then
 	return false
 end
 
@@ -713,16 +714,16 @@ local config = {
 	},
 }
 
-SIN_PQIMistweaver = PQI:AddRotation(config)</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Uplift / Thunder Focus Tea</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
+OM_PQIMistweaver = PQI:AddRotation(config)</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Uplift / Thunder Focus Tea</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 --------------------------------
 -- UPLIFT / THUNDER FOCUS TEA --
 --------------------------------
-local function SIN_RenewingMistTargets()
+local function OM_RenewingMistTargets()
 	local targets = 0
-	local SIN_roster = SIN_roster
-	for i = 1, #SIN_roster do
-		if SIN_roster[i].hp &amp;lt;= PQI_SINMistweaver_Uplift_value
-				and UnitBuff(SIN_roster[i].unit, SIN_convert(115151), nil, &amp;quot;PLAYER&amp;quot;) then
+	local OM_roster = OM_roster
+	for i = 1, #OM_roster do
+		if OM_roster[i].hp &amp;lt;= PQI_SINMistweaver_Uplift_value
+				and UnitBuff(OM_roster[i].unit, OM_convert(115151), nil, &amp;quot;PLAYER&amp;quot;) then
 			targets = targets + 1
 		end
 	end
@@ -736,9 +737,9 @@ if PQI_SINMistweaver_ThunderFocusTea_enable then
 
 	if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 	
-		if not UnitBuff(&amp;quot;player&amp;quot;, SIN_convert(116680)) 
-				and SIN_RenewingMistTargets() &amp;gt;= PQI_SINMistweaver_ThunderFocusTea_value then
-			SIN_Cast(116680, &amp;quot;player&amp;quot;)
+		if not UnitBuff(&amp;quot;player&amp;quot;, OM_convert(116680)) 
+				and OM_RenewingMistTargets() &amp;gt;= PQI_SINMistweaver_ThunderFocusTea_value then
+			OM_Cast(116680, &amp;quot;player&amp;quot;)
 		end
 		
 	end
@@ -750,10 +751,10 @@ end
 ------------
 if PQI_SINMistweaver_Uplift_enable then
 
-	if SIN_CooldownRemains(115151) &amp;lt;= 5
+	if OM_CooldownRemains(115151) &amp;lt;= 5
 			and UnitPower(&amp;quot;player&amp;quot;, 12) &amp;gt;= 2 then
-		if SIN_RenewingMistTargets() &amp;gt;= PQI_SINMistweaver_UpliftTargets_value  then
-			SIN_SpecialCast(116670, &amp;quot;player&amp;quot;)
+		if OM_RenewingMistTargets() &amp;gt;= PQI_SINMistweaver_UpliftTargets_value  then
+			OM_SpecialCast(116670, &amp;quot;player&amp;quot;)
 		end
 	end
 	
@@ -761,13 +762,10 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 ----------- Immerseus
 if UnitExists(&amp;quot;target&amp;quot;)
 		and UnitName(&amp;quot;target&amp;quot;) ==  &amp;quot;Contaminated Puddle&amp;quot; then
-	SIN_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
+	OM_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Force Heal -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>if PQI:IsHotkeys(PQI_SINMistweaver_ForceTargetHeal_key) then
-		SIN_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
-end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- SIN Pre -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
------------------------------------
--- MISTWEAVER MONK A SIN PROFILE --
------------------------------------
+		OM_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
+end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- OM Pre -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 if not IsAddOnLoaded(&amp;quot;PQInterface&amp;quot;) then
 	PQR_WriteToChat(&amp;quot;PQInterface Addon Required.&amp;quot;, &amp;quot;ERROR&amp;quot;)
 	PQR_StopRotation()
@@ -779,9 +777,9 @@ if UnitIsDeadOrGhost(&amp;quot;player&amp;quot;)
 end
 
 local file = {
-	{ lua = &amp;quot;PQR_SIN.lua&amp;quot;, force = false },
-	{ lua = &amp;quot;PQR_SIN_LineOfSight.lua&amp;quot;, force = true },
-	{ lua = &amp;quot;PQR_SIN_HealBot.lua&amp;quot;, force = true },
+	{ lua = &amp;quot;PQR_OM.lua&amp;quot;, force = false },
+	{ lua = &amp;quot;PQR_OM_LineOfSight.lua&amp;quot;, force = true },
+	{ lua = &amp;quot;PQR_OM_HealBot.lua&amp;quot;, force = true },
 	}
 for i = 1, #file do
 	local lua, force = file[i].lua, file[i].force
@@ -790,4 +788,42 @@ for i = 1, #file do
 		PQR_WriteToChat(&amp;quot;Failed to load, &amp;quot; .. lua .. &amp;quot;, update this profile from PQR.&amp;quot;, &amp;quot;ERROR&amp;quot;)
 		PQR_StopRotation()
 	end
+end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- OM Post -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
+OM_SortRoaster()</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Legendary Gem</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
+if UnitBuff(&amp;quot;player&amp;quot;, OM_convert(137331)) then
+	---------
+	-- JAB --
+	---------
+	if not UnitBuff(&amp;quot;player&amp;quot;, OM_convert(139598)) then
+		local spell, unit = 100780, &amp;quot;target&amp;quot;
+		if OM_CanCast(spell, unit) then
+			OM_Cast(spell, unit)
+		end
+	else
+			----------------
+			-- TIGER PALM --
+			----------------
+			local spell, unit = 100787, &amp;quot;target&amp;quot;
+			if OM_CanCast(spell, unit) then
+				OM_Cast(spell, unit)
+			end
+	end	
+	return true
+end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Event: PG -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
+----------- Proving Ground
+
+-- Dispell Aqua Bomb
+for i = 1, #OM_roster do
+			local unit = OM_roster[i].unit
+			if UnitDebuff(unit, 145206) then
+				OM_Cast(115450, unit)	
+			end
+end
+
+-- Chomp
+for i = 1, #OM_roster do
+			local unit = OM_roster[i].unit
+			if UnitDebuff(unit, 145263) then
+				OM_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)		
+			end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability></MONK>
