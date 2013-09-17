@@ -3,7 +3,6 @@
 -- SOOTHING MIST --
 -------------------
 if PQI_SINMistweaver_SoothingMist_enable then
-
 	if GetUnitSpeed(&amp;quot;player&amp;quot;) == 0 then
 		local target, HP = OM_HealTarget()
 		if HP &amp;lt;= PQI_SINMistweaver_SoothingMist_value
@@ -142,7 +141,7 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -----------
 -- DETOX --
 -----------
-if PQI_SINMistweaver_DispelTarget_enable then
+if PQI_SINMistweaver_DetoxTarget_enable then
 
 	local function DoNotDispel(unit)
 		local DoNotDispel = {
@@ -157,26 +156,37 @@ if PQI_SINMistweaver_DispelTarget_enable then
 			end
 		end
 	end
-
-	local unit = {
-			&amp;quot;mouseover&amp;quot;,
-			&amp;quot;target&amp;quot;,
-			&amp;quot;focus&amp;quot;,
-			}
-	local unit = unit[PQI_SINMistweaver_DispelTarget_value]
-	for i = 1, 40 do
-		local debuff = { UnitDebuff(unit, i) }
-		if UnitCanAssist(&amp;quot;player&amp;quot;, unit)
-				and debuff[1]
-				and not DoNotDispel(unit) then
-			if debuff[5] == &amp;quot;Magic&amp;quot;
-					or debuff[5] == &amp;quot;Poison&amp;quot;
-					or debuff[5] == &amp;quot;Disease&amp;quot; then
-				OM_Cast(115450, unit)
+	
+	local function dispel(unit)
+		for i = 1, 40 do
+			local debuff = { UnitDebuff(unit, i) }
+			if UnitCanAssist(&amp;quot;player&amp;quot;, unit)
+					and debuff[1]
+					and not DoNotDispel(unit) then
+				if debuff[5] == &amp;quot;Magic&amp;quot;
+						or debuff[5] == &amp;quot;Poison&amp;quot;
+						or debuff[5] == &amp;quot;Disease&amp;quot; then
+					OM_Cast(115450, unit)
+				end
 			end
 		end
 	end
+
+	local unit = {
+		&amp;quot;mouseover&amp;quot;,
+		&amp;quot;target&amp;quot;,
+		&amp;quot;focus&amp;quot;,
+		&amp;quot;auto&amp;quot;,
+	}
 	
+	if PQI_SINMistweaver_DetoxTarget_value == 4 then
+		for i = 1, #OM_roster do
+			dispel(OM_roster[i].unit)
+		end
+	else
+		dispel(unit[PQI_SINMistweaver_DetoxTarget_value])
+	end 
+	 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>True</SkipUnknown></Ability><Ability><Name>Mistweaver (Passive)</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 -------------
 -- PASSIVE --
@@ -473,7 +483,17 @@ local config = {
 			},
 		},
 		{
-			name = &amp;quot;Dispel Target&amp;quot;,
+			name = &amp;quot;Detox Target&amp;quot;,
+			newSection = true,
+			enable = false,
+				widget = { type = &amp;apos;select&amp;apos;, 
+				values = { &amp;quot;mouseover&amp;quot;, &amp;quot;target&amp;quot;, &amp;quot;focus&amp;quot;, &amp;quot;auto&amp;quot;, },
+				value = 1,
+				width = 75,
+			  },
+		},
+		{
+			name = &amp;quot;Force Heal Target&amp;quot;,
 			newSection = true,
 			enable = false,
 				widget = { type = &amp;apos;select&amp;apos;, 
@@ -481,6 +501,19 @@ local config = {
 				value = 1,
 				width = 75,
 			  },
+		},
+		{
+			name = &amp;quot;Fake Life&amp;quot;,
+			enable = true,
+			widget = {
+				type = &amp;quot;numBox&amp;quot;,
+				value = 40,
+				min = 5,
+				max = 100,
+				step = 5,
+				tooltip = &amp;quot;Health percent&amp;quot;,
+				width = 50,	
+			},
 		},
 		{
 			name = &amp;quot;Soothing Mist&amp;quot;,
@@ -682,6 +715,16 @@ local config = {
 				width = 50,				
 			},
 		},
+				{
+			name = &amp;quot;Event&amp;quot;,
+			newSection = true,
+			enable = false,
+				widget = { type = &amp;apos;select&amp;apos;, 
+				values = { &amp;quot;SoO&amp;quot;, &amp;quot;Proving Ground&amp;quot;, },
+				value = 1,
+				width = 140,
+			  },
+		},
 	},
 	hotkeys = {
 		{
@@ -702,14 +745,14 @@ local config = {
 			name = &amp;quot;PAUSE&amp;quot;,
 			enable = true,
 			hotkeys = {
-				&amp;apos;ls&amp;apos;,
+				&amp;apos;rs&amp;apos;,
 			},
 		},
 		{
-			name = &amp;quot;Force Target Heal&amp;quot;,
+			name = &amp;quot;Force Heal&amp;quot;,
 			enable = true,
 			hotkeys = {
-				&amp;apos;rs&amp;apos;,
+				&amp;apos;ls&amp;apos;,
 			},
 		},
 	},
@@ -764,8 +807,17 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 if UnitExists(&amp;quot;target&amp;quot;)
 		and UnitName(&amp;quot;target&amp;quot;) ==  &amp;quot;Contaminated Puddle&amp;quot; then
 	OM_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
-end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Force Heal -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>if PQI:IsHotkeys(PQI_SINMistweaver_ForceTargetHeal_key) then
-		OM_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
+end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Force Heal -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
+if  PQI_SINMistweaver_ForceHealTarget_enable 
+		and PQI:IsHotkeys(PQI_SINMistweaver_ForceHeal_key) then
+		
+	local unit = {
+		&amp;quot;mouseover&amp;quot;,
+		&amp;quot;target&amp;quot;,
+		&amp;quot;focus&amp;quot;,
+	}
+	--PQR_WriteToChat(unit[PQI_SINMistweaver_ForceHeal_value])
+	OM_AddToRoster(unit[PQI_SINMistweaver_ForceHealTarget_value], PQI_SINMistweaver_FakeLife_value, &amp;quot;PRIORITY&amp;quot;)
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- OM Pre -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 if not IsAddOnLoaded(&amp;quot;PQInterface&amp;quot;) then
 	PQR_WriteToChat(&amp;quot;PQInterface Addon Required.&amp;quot;, &amp;quot;ERROR&amp;quot;)
@@ -792,8 +844,8 @@ for i = 1, #file do
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- OM Post -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 OM_SortRoster()
 
---local target, HP, role = OM_HealTarget()
---PQR_WriteToChat(UnitName(OM_HealTarget()) .. &amp;quot; (&amp;quot; .. role .. &amp;quot;)&amp;quot;)</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Legendary Gem</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
+local target, HP, role = OM_HealTarget()
+--PQR_WriteToChat(UnitName(OM_HealTarget()) .. &amp;quot; (&amp;quot; .. role .. &amp;quot;)&amp;quot; .. &amp;quot; HP: &amp;quot; .. HP)</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Legendary Gem</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 if UnitBuff(&amp;quot;player&amp;quot;, OM_convert(137331)) then
 	---------
 	-- JAB --
@@ -820,7 +872,7 @@ for i = 1, #OM_roster do
 			local unit = OM_roster[i].unit
 			local debuff = UnitDebuff(unit, 1) 
 			if debuff == &amp;quot;Aqua Bomb&amp;quot; then
-				OM_Cast(115450, unit)
+				--OM_Cast(115450, unit)
 			elseif debuff == &amp;quot;Chomp&amp;quot; then
 				OM_AddToRoster(unit, 40, &amp;quot;PRIORITY&amp;quot;)
 			end
