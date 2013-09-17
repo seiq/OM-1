@@ -15,10 +15,10 @@ local NumGroupMembers = IsInRaid() and GetNumGroupMembers()
 		or 0
 
 if not OM_AddToRoster then
-	function OM_AddToRoster (aunit, hp, role)
-		if OM_UnitRosterCheck(aunit) then
+	function OM_AddToRoster (unit, hp, role)
+		if OM_UnitRosterCheck(unit) then
 			tinsert(OM_roster, {
-				unit = aunit,
+				unit = unit,
 				hp = hp,
 				role = role,
 				}

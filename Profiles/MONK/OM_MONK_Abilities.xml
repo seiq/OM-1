@@ -305,6 +305,7 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -----------
 -- PAUSE --
 -----------
+
 if IsMounted()
 		or UnitBuff(&amp;quot;player&amp;quot;, OM_convert(105590)) --drink
 		or UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(115176) --zen
@@ -789,7 +790,10 @@ for i = 1, #file do
 		PQR_StopRotation()
 	end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- OM Post -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
-OM_SortRoaster()</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Legendary Gem</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
+OM_SortRoster()
+
+--local target, HP, role = OM_HealTarget()
+--PQR_WriteToChat(UnitName(OM_HealTarget()) .. &amp;quot; (&amp;quot; .. role .. &amp;quot;)&amp;quot;)</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Legendary Gem</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 if UnitBuff(&amp;quot;player&amp;quot;, OM_convert(137331)) then
 	---------
 	-- JAB --
@@ -815,15 +819,18 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -- Dispell Aqua Bomb
 for i = 1, #OM_roster do
 			local unit = OM_roster[i].unit
-			if UnitDebuff(unit, 145206) then
+			local debuff = UnitDebuff(unit, 1) 
+			if debuff == &amp;quot;Aqua Bomb&amp;quot; then
 				OM_Cast(115450, unit)	
 			end
 end
 
+
 -- Chomp
 for i = 1, #OM_roster do
 			local unit = OM_roster[i].unit
-			if UnitDebuff(unit, 145263) then
-				OM_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)		
+			local debuff = UnitDebuff(unit, 1) 
+			if debuff == &amp;quot;Chomp&amp;quot; then
+				OM_AddToRoster(unit, 40, &amp;quot;PRIORITY&amp;quot;)	
 			end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability></MONK>
