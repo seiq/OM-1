@@ -6,6 +6,41 @@ function OM_convert(spell)
 	return spell
 end
 
+-----------------
+-- PVP / OTHER --
+-----------------
+function OM_SnareImmune()
+	local Immune={
+		"Hand of Freedom",
+		"Master's Call",
+		"Phantasm",
+		"Windwalk Totem",
+		"Bladestorm",
+		}
+	for i=1,#Immune do
+		if UnitBuff("target",Immune[i]) then
+			return true
+		end
+	end
+end
+function OM_CastImmune(unit)
+	local Immune={
+		"Hand of Protection",
+		"Divine Shield",
+		"Ice Block",
+		"Dispersion",
+		"Deterrence",
+		"Dematerialize",
+		"Touch of Karma",
+		}
+	for i=1,#Immune do
+		if UnitBuff(unit,Immune[i]) or
+				UnitDebuff(unit, "Cyclone") then
+			return 1
+		end
+	end
+end
+
 --------------------
 -- CAST / CHANNEL --
 --------------------

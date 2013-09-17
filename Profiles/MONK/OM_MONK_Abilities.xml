@@ -816,21 +816,12 @@ if UnitBuff(&amp;quot;player&amp;quot;, OM_convert(137331)) then
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Event: PG -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 ----------- Proving Ground
 
--- Dispell Aqua Bomb
 for i = 1, #OM_roster do
 			local unit = OM_roster[i].unit
 			local debuff = UnitDebuff(unit, 1) 
 			if debuff == &amp;quot;Aqua Bomb&amp;quot; then
-				OM_Cast(115450, unit)	
-			end
-end
-
-
--- Chomp
-for i = 1, #OM_roster do
-			local unit = OM_roster[i].unit
-			local debuff = UnitDebuff(unit, 1) 
-			if debuff == &amp;quot;Chomp&amp;quot; then
-				OM_AddToRoster(unit, 40, &amp;quot;PRIORITY&amp;quot;)	
+				OM_Cast(115450, unit)
+			elseif debuff == &amp;quot;Chomp&amp;quot; then
+				OM_AddToRoster(unit, 40, &amp;quot;PRIORITY&amp;quot;)
 			end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability></MONK>
