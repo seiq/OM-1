@@ -2,10 +2,10 @@
 -------------------
 -- SOOTHING MIST --
 -------------------
-if PQI_SINMistweaver_SoothingMist_enable then
+if PQI_OMMistweaver_SoothingMist_enable then
 	if GetUnitSpeed(&amp;quot;player&amp;quot;) == 0 then
 		local target, HP = OM_HealTarget()
-		if HP &amp;lt;= PQI_SINMistweaver_SoothingMist_value
+		if HP &amp;lt;= PQI_OMMistweaver_SoothingMist_value
 				or UnitAffectingCombat(&amp;quot;player&amp;quot;) 
 				and not OM_CanCast(100780, &amp;quot;target&amp;quot;)
 				and UnitPowerMax(&amp;quot;player&amp;quot;, 12) - 1 &amp;gt; UnitPower(&amp;quot;player&amp;quot;, 12) then
@@ -21,11 +21,11 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 ---------------------
 -- FORTIFYING BREW --
 ---------------------
-if PQI_SINMistweaver_FortifyingBrew_enable then
+if PQI_OMMistweaver_FortifyingBrew_enable then
 
 	if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 
-		if OM_UnitHP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_FortifyingBrew_value then 
+		if OM_UnitHP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_OMMistweaver_FortifyingBrew_value then 
 			OM_Cast(115203)
 			if GetItemCount(5512, nil, true) &amp;gt; 0 
 					and GetItemCooldown(5512) == 0 then
@@ -55,10 +55,10 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 ------------------
 -- SURGING MIST --
 ------------------
-if PQI_SINMistweaver_SurgingMist_enable then
+if PQI_OMMistweaver_SurgingMist_enable then
 
 	local target, HP = OM_HealTarget()
-	if HP &amp;lt;= PQI_SINMistweaver_SurgingMist_value then
+	if HP &amp;lt;= PQI_OMMistweaver_SurgingMist_value then
 		if UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(115175)
 				and UnitPower(&amp;quot;player&amp;quot;, 12) &amp;lt; UnitPowerMax(&amp;quot;player&amp;quot;, 12)
 				and OM_UnitBuffSpecial(target, 115175) then
@@ -77,9 +77,9 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 ----------------
 -- EXPEL HARM --
 ----------------
-if PQI_SINMistweaver_ExpelHarm_enable then
+if PQI_OMMistweaver_ExpelHarm_enable then
 
-	if OM_UnitHP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_ExpelHarm_value then
+	if OM_UnitHP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_OMMistweaver_ExpelHarm_value then
 		OM_Cast(115072, &amp;quot;player&amp;quot;)
 	end
 	
@@ -87,12 +87,12 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -------------------
 -- RENEWING MIST --
 -------------------
-if PQI_SINMistweaver_RenewingMist_enable then
+if PQI_OMMistweaver_RenewingMist_enable then
 
 	local OM_roster = OM_roster
 	for i = 1, #OM_roster do
 		if not UnitBuff(OM_roster[i].unit, OM_convert(115151), nil, &amp;quot;PLAYER&amp;quot;)
-				and OM_UnitHP(OM_roster[i].unit) &amp;lt;= PQI_SINMistweaver_RenewingMist_value then
+				and OM_UnitHP(OM_roster[i].unit) &amp;lt;= PQI_OMMistweaver_RenewingMist_value then
 			OM_Cast(115151, OM_roster[i].unit)
 		end
 	end
@@ -101,10 +101,10 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 ---------------------
 -- ENVELOPING MIST --
 ---------------------
-if PQI_SINMistweaver_EnvelopingMist_enable then
+if PQI_OMMistweaver_EnvelopingMist_enable then
 
 	local target, HP = OM_HealTarget()
-	if HP &amp;lt;= PQI_SINMistweaver_EnvelopingMist_value then
+	if HP &amp;lt;= PQI_OMMistweaver_EnvelopingMist_value then
 		if UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(115175)
 				and UnitPower(&amp;quot;player&amp;quot;, 12) &amp;gt;= 3
 				and OM_UnitBuffSpecial(target, 115175)
@@ -119,13 +119,13 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -----------------
 -- LIFE COCOON --
 -----------------
-if PQI_SINMistweaver_LifeCocoon_enable then
+if PQI_OMMistweaver_LifeCocoon_enable then
 
 	if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 	
 		local target, HP, role = OM_HealTarget()
 		local InstanceInfo = { GetInstanceInfo() }
-		if HP &amp;lt;= PQI_SINMistweaver_LifeCocoon_value
+		if HP &amp;lt;= PQI_OMMistweaver_LifeCocoon_value
 				and not UnitBuff(target, OM_convert(116849))
 				and UnitAffectingCombat(target)
 				and not OM_CastImmune(target)
@@ -141,7 +141,7 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -----------
 -- DETOX --
 -----------
-if PQI_SINMistweaver_DetoxTarget_enable then
+if PQI_OMMistweaver_DetoxTarget_enable then
 
 	local function DoNotDispel(unit)
 		local DoNotDispel = {
@@ -179,12 +179,12 @@ if PQI_SINMistweaver_DetoxTarget_enable then
 		&amp;quot;auto&amp;quot;,
 	}
 	
-	if PQI_SINMistweaver_DetoxTarget_value == 4 then
+	if PQI_OMMistweaver_DetoxTarget_value == 4 then
 		for i = 1, #OM_roster do
 			dispel(OM_roster[i].unit)
 		end
 	else
-		dispel(unit[PQI_SINMistweaver_DetoxTarget_value])
+		dispel(unit[PQI_OMMistweaver_DetoxTarget_value])
 	end 
 	 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>True</SkipUnknown></Ability><Ability><Name>Mistweaver (Passive)</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
@@ -230,7 +230,7 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -------------
 -- REVIVAL --
 -------------
-if PQI_SINMistweaver_Revival_enable then
+if PQI_OMMistweaver_Revival_enable then
 
 	if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 		
@@ -239,7 +239,7 @@ if PQI_SINMistweaver_Revival_enable then
 			local OM_roster = OM_roster
 			for i = 1, #OM_roster do
 				if OM_roster[i].role ~= &amp;quot;PET&amp;quot; then
-					if OM_roster[i].hp &amp;lt;= PQI_SINMistweaver_Revival_value then
+					if OM_roster[i].hp &amp;lt;= PQI_OMMistweaver_Revival_value then
 						targets = targets + 1
 					end
 				end
@@ -247,7 +247,7 @@ if PQI_SINMistweaver_Revival_enable then
 			return targets
 		end
 		
-		if OM_RevivalTargets() &amp;gt;= PQI_SINMistweaver_RevivalTargets_value then
+		if OM_RevivalTargets() &amp;gt;= PQI_OMMistweaver_RevivalTargets_value then
 			OM_SpecialCast(115310, &amp;quot;player&amp;quot;)
 		end
 	
@@ -257,20 +257,20 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 --------------------- 
 -- LEVEL 30 TALENT -- 
 --------------------- 
-if PQI_SINMistweaver_Level30Talent_enable then 
+if PQI_OMMistweaver_Level30Talent_enable then 
   
 	local spell = OM_TalentOption(2) or 0
 	local OM_roster = OM_roster 
 	
 	for i = 1, #OM_roster do 
 		if OM_roster[i].role  == &amp;quot;TANK&amp;quot;
-				and OM_UnitHP(OM_roster[i].unit) &amp;lt;= PQI_SINMistweaver_Level30Talent_value
+				and OM_UnitHP(OM_roster[i].unit) &amp;lt;= PQI_OMMistweaver_Level30Talent_value
 				and not UnitBuff(OM_roster[i].unit, OM_TalentOption(2), nil, &amp;quot;PLAYER&amp;quot;) then 
 			OM_Cast(spell, OM_roster[i].unit) 
 		end 
 	end
 	
-	if OM_UnitHP(OM_roster[1].unit) &amp;lt;= PQI_SINMistweaver_Level30Talent_value
+	if OM_UnitHP(OM_roster[1].unit) &amp;lt;= PQI_OMMistweaver_Level30Talent_value
 			and not UnitBuff(OM_roster[1].unit, spell, nil, &amp;quot;PLAYER&amp;quot;) then 
 		OM_Cast(spell, OM_roster[1].unit) 
 	end
@@ -279,13 +279,13 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -------------------------
 -- SPINNING CRANE KICK --
 -------------------------
-if PQI_SINMistweaver_SpinningCraneKick_enable then
+if PQI_OMMistweaver_SpinningCraneKick_enable then
 
 	local function OM_SpinningCraneKickTargets()
 		local count = 0
 		local OM_roster = OM_roster
 		for i = 1, #OM_roster do
-			if OM_roster[i].hp &amp;lt;= PQI_SINMistweaver_SpinningCraneKick_value then
+			if OM_roster[i].hp &amp;lt;= PQI_OMMistweaver_SpinningCraneKick_value then
 				if CheckInteractDistance(OM_roster[i].unit, 3) then
 					count = count + 1
 				end
@@ -305,9 +305,9 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 --------------------
 -- HEALING SPHERE --
 --------------------
-if PQI_SINMistweaver_HealingSphere_enable then
+if PQI_OMMistweaver_HealingSphere_enable then
 
-	if PQI:IsHotkeys(PQI_SINMistweaver_HealingSphere_key) then
+	if PQI:IsHotkeys(PQI_OMMistweaver_HealingSphere_key) then
 		OM_AECast(115460, &amp;quot;player&amp;quot;)
 	end
 	
@@ -321,7 +321,7 @@ if IsMounted()
 		or UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(115176) --zen
 		or UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(117952) --crack
 		or UnitChannelInfo(&amp;quot;player&amp;quot;) == OM_convert(115867) --manatea
-		or (PQI:IsHotkeys(PQI_SINMistweaver_PAUSE_key)
+		or (PQI:IsHotkeys(PQI_OMMistweaver_PAUSE_key)
 		and not GetCurrentKeyBoardFocus()) then
 	return true
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Mana Tea / On Use</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
@@ -330,11 +330,11 @@ if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 	--------------
 	-- MANA TEA --
 	--------------
-	if PQI_SINMistweaver_ManaTea_enable then
+	if PQI_OMMistweaver_ManaTea_enable then
 	
 		local ManaTeaCount = GetSpellCount(OM_convert(115294))
 		if ManaTeaCount &amp;gt;= 2
-				and OM_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_ManaTea_value then
+				and OM_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_OMMistweaver_ManaTea_value then
 			OM_Cast(115294, &amp;quot;player&amp;quot;)
 		elseif ManaTeaCount == 1 then
 			if UnitBuff(&amp;quot;player&amp;quot;, OM_convert(64904))
@@ -348,9 +348,9 @@ if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 	------------
 	-- ON USE --
 	------------
-	if PQI_SINMistweaver_OnUse_enable then
+	if PQI_OMMistweaver_OnUse_enable then
 	
-		if OM_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_SINMistweaver_OnUse_value then
+		if OM_UnitMP(&amp;quot;player&amp;quot;) &amp;lt;= PQI_OMMistweaver_OnUse_value then
 			local ItemSlot = { 13, 14, 10 }
 			for i = 1, #ItemSlot do
 				local ItemID = GetInventoryItemID(&amp;quot;player&amp;quot;, ItemSlot[i])
@@ -368,9 +368,9 @@ end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True<
 -------------------------
 -- JADE SERPENT STATUE --
 -------------------------
-if PQI_SINMistweaver_JadeSerpentStatue_enable then
+if PQI_OMMistweaver_JadeSerpentStatue_enable then
 
-	if PQI:IsHotkeys(PQI_SINMistweaver_JadeSerpentStatue_key) then
+	if PQI:IsHotkeys(PQI_OMMistweaver_JadeSerpentStatue_key) then
 		OM_AECast(115313, &amp;quot;player&amp;quot;)
 	end
 	
@@ -467,7 +467,7 @@ end
 
 local config = {
 	name = &amp;quot;Mistweaver&amp;quot;,
-	author = &amp;quot;SIN&amp;quot;,
+	author = &amp;quot;OM&amp;quot;,
 	abilities = {
 		{
 			name = &amp;quot;Level 30 Talent&amp;quot;,
@@ -766,7 +766,7 @@ local function OM_RenewingMistTargets()
 	local targets = 0
 	local OM_roster = OM_roster
 	for i = 1, #OM_roster do
-		if OM_roster[i].hp &amp;lt;= PQI_SINMistweaver_Uplift_value
+		if OM_roster[i].hp &amp;lt;= PQI_OMMistweaver_Uplift_value
 				and UnitBuff(OM_roster[i].unit, OM_convert(115151), nil, &amp;quot;PLAYER&amp;quot;) then
 			targets = targets + 1
 		end
@@ -777,12 +777,12 @@ end
 -----------------------
 -- THUNDER FOCUS TEA --
 -----------------------
-if PQI_SINMistweaver_ThunderFocusTea_enable then
+if PQI_OMMistweaver_ThunderFocusTea_enable then
 
 	if UnitAffectingCombat(&amp;quot;player&amp;quot;) then
 	
 		if not UnitBuff(&amp;quot;player&amp;quot;, OM_convert(116680)) 
-				and OM_RenewingMistTargets() &amp;gt;= PQI_SINMistweaver_ThunderFocusTea_value then
+				and OM_RenewingMistTargets() &amp;gt;= PQI_OMMistweaver_ThunderFocusTea_value then
 			OM_Cast(116680, &amp;quot;player&amp;quot;)
 		end
 		
@@ -793,31 +793,33 @@ end
 ------------
 -- UPLIFT --
 ------------
-if PQI_SINMistweaver_Uplift_enable then
+if PQI_OMMistweaver_Uplift_enable then
 
 	if OM_CooldownRemains(115151) &amp;lt;= 5
 			and UnitPower(&amp;quot;player&amp;quot;, 12) &amp;gt;= 2 then
-		if OM_RenewingMistTargets() &amp;gt;= PQI_SINMistweaver_UpliftTargets_value  then
+		if OM_RenewingMistTargets() &amp;gt;= PQI_OMMistweaver_UpliftTargets_value  then
 			OM_SpecialCast(116670, &amp;quot;player&amp;quot;)
 		end
 	end
 	
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Event: SoO -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
------------ Immerseus
-if UnitExists(&amp;quot;target&amp;quot;)
-		and UnitName(&amp;quot;target&amp;quot;) ==  &amp;quot;Contaminated Puddle&amp;quot; then
-	OM_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
+if PQI_OMMistweaver_Event_value == 1 then
+	----------- Immerseus
+	if UnitExists(&amp;quot;target&amp;quot;)
+			and UnitName(&amp;quot;target&amp;quot;) ==  &amp;quot;Contaminated Puddle&amp;quot; then
+		OM_AddToRoster(&amp;quot;target&amp;quot;, 40, &amp;quot;PRIORITY&amp;quot;)
+	end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Force Heal -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
-if  PQI_SINMistweaver_ForceHealTarget_enable 
-		and PQI:IsHotkeys(PQI_SINMistweaver_ForceHeal_key) then
+if  PQI_OMMistweaver_ForceHealTarget_enable 
+		and PQI:IsHotkeys(PQI_OMMistweaver_ForceHeal_key) then
 		
 	local unit = {
 		&amp;quot;mouseover&amp;quot;,
 		&amp;quot;target&amp;quot;,
 		&amp;quot;focus&amp;quot;,
 	}
-	--PQR_WriteToChat(unit[PQI_SINMistweaver_ForceHeal_value])
-	OM_AddToRoster(unit[PQI_SINMistweaver_ForceHealTarget_value], PQI_SINMistweaver_FakeLife_value, &amp;quot;PRIORITY&amp;quot;)
+	--PQR_WriteToChat(unit[PQI_OMMistweaver_ForceHeal_value])
+	OM_AddToRoster(unit[PQI_OMMistweaver_ForceHealTarget_value], PQI_OMMistweaver_FakeLife_value, &amp;quot;PRIORITY&amp;quot;)
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- OM Pre -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 if not IsAddOnLoaded(&amp;quot;PQInterface&amp;quot;) then
 	PQR_WriteToChat(&amp;quot;PQInterface Addon Required.&amp;quot;, &amp;quot;ERROR&amp;quot;)
@@ -844,7 +846,7 @@ for i = 1, #file do
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- OM Post -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 OM_SortRoster()
 
-local target, HP, role = OM_HealTarget()
+--local target, HP, role = OM_HealTarget()
 --PQR_WriteToChat(UnitName(OM_HealTarget()) .. &amp;quot; (&amp;quot; .. role .. &amp;quot;)&amp;quot; .. &amp;quot; HP: &amp;quot; .. HP)</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>Legendary Gem</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 if UnitBuff(&amp;quot;player&amp;quot;, OM_convert(137331)) then
 	---------
@@ -867,13 +869,14 @@ if UnitBuff(&amp;quot;player&amp;quot;, OM_convert(137331)) then
 	return true
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability><Ability><Name>- Event: PG -</Name><Default>false</Default><SpellID>0</SpellID><Actions></Actions><Lua>--
 ----------- Proving Ground
-
-for i = 1, #OM_roster do
-			local unit = OM_roster[i].unit
-			local debuff = UnitDebuff(unit, 1) 
-			if debuff == &amp;quot;Aqua Bomb&amp;quot; then
-				--OM_Cast(115450, unit)
-			elseif debuff == &amp;quot;Chomp&amp;quot; then
-				OM_AddToRoster(unit, 40, &amp;quot;PRIORITY&amp;quot;)
-			end
+if PQI_OMMistweaver_Event_value == 2 then
+	for i = 1, #OM_roster do
+				local unit = OM_roster[i].unit
+				local debuff = UnitDebuff(unit, 1) 
+				if debuff == &amp;quot;Aqua Bomb&amp;quot; then
+					--OM_Cast(115450, unit)
+				elseif debuff == &amp;quot;Chomp&amp;quot; then
+					OM_AddToRoster(unit, 40, &amp;quot;PRIORITY&amp;quot;)
+				end
+	end
 end</Lua><RecastDelay>0</RecastDelay><Target>Custom</Target><CancelChannel>True</CancelChannel><SkipUnknown>False</SkipUnknown></Ability></MONK>
