@@ -1,0 +1,7 @@
+https://raw.github.com/kw3r/OM/master/Profiles/MONK/OM_MONK_Rotations.xml
+https://raw.github.com/kw3r/OM/master/Profiles/MONK/OM_MONK_Abilities.xml
+
+https://raw.github.com/kw3r/OM/master/Data/PQR_OM.lua
+https://raw.github.com/kw3r/OM/master/Data/PQR_LineOfSight.lua
+https://raw.github.com/kw3r/OM/master/Data/PQR_OM_HealBot.lua
+https://raw.github.com/kw3r/OM/master/Data/PQR_PQI.lua
